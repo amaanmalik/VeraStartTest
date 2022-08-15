@@ -1,0 +1,102 @@
+﻿@model VeraStartTest.Models.ViewModels.OrderDiscountsListViewModel  
+@{  
+    ViewData["Title"] = "Orders List";  
+}  
+  
+<div class="text-center">  
+    <h1 class="display-4">Discounts</h1>  
+  
+    <form asp-action="Discounts" asp-controller="Customer" method="post">  
+  
+        <div class="row">             
+            <div class="col"> 
+                <label asp-for="StatesList" class="col-sm-2 col-form-label"></label>
+                <select id="drpEmpList" class="form-control" asp-for="StateId" asp-items="@(new SelectList(Model.StatesList, "Value", "Text"))">  
+                    <option value="">--Select--</option>  
+                </select>  
+                <input type="hidden" asp-for="StateId" />  
+                 
+            </div> 
+             <div class="col">  
+                <label asp-for="DiscountPercentage" class="col-sm-2 col-form-label"></label>
+                <input asp-for="DiscountPercentage" class="form-control" placeholder="DiscountPercentage">
+                
+                 
+            </div>  
+            <div class="col">  
+                <input type="submit" name="btnSubmit" value="Get Orders" class="btn btn-success" />  
+            </div>  
+        </div>  
+  
+    </form>  
+</div>  
+
+<div class="row">
+            <div class="col-md-offset-1 col-md-11">
+                <table class="table">
+                    <tr>
+                        <th>
+                           CustomerId
+                        </th>
+                        <th>
+                          FirstName
+                        </th>      
+                        <th>
+                            LastName
+                        </th> 
+                         <th>
+                            State
+                        </th> 
+                        <th>
+                            OrderId
+                        </th> 
+                        <th>
+                            OrderTotal
+                        </th> 
+                        <th>
+                            Discount Percentage
+                        </th> 
+                        <th>
+                            Discounted Total
+                        </th> 
+                    </tr>
+                    @if (Model.OrdersList != null)
+                    {
+                        for (var i = 0; i < Model.OrdersList.Count(); i++)
+                        {
+                            <tr>
+                                @Html.HiddenFor(x => Model.OrdersList[i].CustomerID)
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].CustomerID, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].FirstName, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].LastName, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].State, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].OrderID, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].Total, new { @class = "form-control", @readonly = "readonly" })
+                                </td>    
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].DiscountPercentage, new { @class = "form-control", @readonly = "readonly" })
+                                </td> 
+                                <td>
+                                    @Html.TextBoxFor(x => Model.OrdersList[i].DiscountedTotal, new { @class = "form-control", @readonly = "readonly" })
+                                </td> 
+                              
+                            </tr>
+                        }
+                    }
+
+                    
+                    
+                </table>
+            </div>
+            </div>

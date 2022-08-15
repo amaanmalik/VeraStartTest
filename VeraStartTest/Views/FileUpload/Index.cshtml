@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "File Uploader";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Select files to upload!</h1>
+    
+
+     <form asp-controller="FileUpload" asp-action="Index" method="post" enctype="multipart/form-data" >
+        <input type="file" name="postedFiles" multiple  />
+        <input type="submit" value="Upload" />
+    </form>
+    
+</div>

@@ -1,0 +1,129 @@
+﻿@model VeraStartTest.Models.ViewModels.CustomerOrdersListViewModel
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+@if(Model != null)
+{
+    @using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>    
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-offset-1 col-md-11">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].OrderID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].OrderDate)
+                        </th>      
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].Total)
+                        </th> 
+                    </tr>
+                    @if (Model.Orders != null)
+                    {
+                        for (var i = 0; i < Model.Orders.Count(); i++)
+                        {
+                            <tr>
+                                @Html.HiddenFor(x => Model.Orders[i].CustomerID)
+                                <td>
+                                    @Html.TextBoxFor(x => Model.Orders[i].OrderID, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => Model.Orders[i].OrderDate, new { @class = "form-control", @readonly = "readonly" })
+                                </td>      
+                                <td>
+                                    @Html.TextBoxFor(x => Model.Orders[i].Total, new { @class = "form-control", @readonly = "readonly" })
+                                </td> 
+                            </tr>
+                        }
+                    }
+                    @*<tr>
+                        <td>
+                            @Html.ActionLink("Add", "Edit", new { customerid = Model.CustomerID, orderid = Model.OrderID }, htmlAttributes: new { @class = "btn btn-success" })
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>*@
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-1 col-md-11">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].Items[0].OrderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].Items[0].ItemId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].Items[0].ListPrice)
+                        </th>    
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orders[0].Items[0].Discount)
+                        </th> 
+                    </tr>
+                    @if (Model.Orders != null)
+                    {   
+                            foreach(var order in Model.Orders)
+                            {
+                                 @order.OrderID 
+                                foreach(var item in order.Items.ToList())
+                                {
+                                  
+                              <tr>
+                              <td>
+                                    @Html.TextBoxFor(x => item.OrderId, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => item.ItemId, new { @class = "form-control", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => item.ListPrice, new { @class = "form-control", @readonly = "readonly" })
+                                </td>      
+                                <td>
+                                    @Html.TextBoxFor(x => item.Discount, new { @class = "form-control", @readonly = "readonly" })
+                                </td>  
+                            </tr>
+                                }
+                            }
+                    }
+                
+                </table>
+            </div>
+        </div>       
+        </div>
+    }
+
+}
+else
+{
+    <p>No Orders</p>
+}
